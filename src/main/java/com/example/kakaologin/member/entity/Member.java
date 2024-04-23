@@ -1,5 +1,6 @@
 package com.example.kakaologin.member.entity;
 
+import com.example.kakaologin.oauth2.model.OAuth2Provider;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,10 +30,10 @@ public class Member {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    private SocialType socialType;
+    private OAuth2Provider socialType;
 
     @Builder
-    private Member(String email, String nickname, String profileImg, String phoneNumber, SocialType socialType) {
+    private Member(String email, String nickname, String profileImg, String phoneNumber, OAuth2Provider socialType) {
         this.email = email;
         this.nickname = nickname;
         this.profileImg = profileImg;
