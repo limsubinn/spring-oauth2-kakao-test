@@ -38,3 +38,6 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-info-authentication-method: header
             user-name-attribute: id
+
+secret:
+  jwt-secret-key: ${JWT_SECRET_KEY}
