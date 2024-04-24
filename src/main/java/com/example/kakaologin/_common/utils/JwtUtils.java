@@ -1,4 +1,4 @@
-package com.example.kakaologin._common.jwt;
+package com.example.kakaologin._common.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

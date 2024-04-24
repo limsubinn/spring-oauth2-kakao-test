@@ -1,6 +1,7 @@
-package com.example.kakaologin._common.jwt;
+package com.example.kakaologin._common.filter;
 
 import com.example.kakaologin._common.exception.BusinessException;
+import com.example.kakaologin._common.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

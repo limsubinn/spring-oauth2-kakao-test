@@ -1,4 +1,4 @@
-package com.example.kakaologin._common.jwt;
+package com.example.kakaologin._common.filter;
 
 import com.example.kakaologin._common.response.status.ErrorType;
 import com.fasterxml.jackson.databind.ObjectMapper;

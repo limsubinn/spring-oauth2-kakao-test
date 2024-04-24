@@ -1,4 +1,4 @@
-package com.example.kakaologin.oauth2.utils;
+package com.example.kakaologin._common.utils;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package com.example.kakaologin._common.config;
 
-import com.example.kakaologin._common.jwt.JwtAuthenticationFilter;
-import com.example.kakaologin._common.jwt.JwtExceptionFilter;
+import com.example.kakaologin._common.filter.JwtAuthenticationFilter;
+import com.example.kakaologin._common.filter.JwtExceptionFilter;
 import com.example.kakaologin.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import com.example.kakaologin.oauth2.handler.OAuth2AuthenticationSuccessHandler;
 import com.example.kakaologin.oauth2.repository.OAuth2AuthorizationRepository;

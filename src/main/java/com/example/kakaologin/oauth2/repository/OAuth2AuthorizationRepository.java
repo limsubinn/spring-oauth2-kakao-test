@@ -1,6 +1,6 @@
 package com.example.kakaologin.oauth2.repository;
 
-import com.example.kakaologin.oauth2.utils.CookieUtils;
+import com.example.kakaologin._common.utils.CookieUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
