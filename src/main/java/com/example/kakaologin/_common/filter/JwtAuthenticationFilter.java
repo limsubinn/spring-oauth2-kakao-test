@@ -1,6 +1,5 @@
 package com.example.kakaologin._common.filter;
 
-import com.example.kakaologin._common.exception.BusinessException;
 import com.example.kakaologin._common.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -31,6 +30,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getToken(request);
 
+        if (!StringUtils.hasText(token)) {
+            doFilter(request, response, filterChain);
+            return;
+        }
+
         // 만료된 토큰인지 확인
 //        jwtUtils.isExpiredToken(token);
 
@@ -43,17 +47,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String getToken(HttpServletRequest request) {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-        validateToken(token);
-        return token.substring(TOKEN_PREFIX.length());
-    }
 
-    private void validateToken(String token) {
-        if (!StringUtils.hasText(token)) {
-            throw new BusinessException(TOKEN_NOT_FOUND);
+        if (StringUtils.hasText(token) && token.startsWith(TOKEN_PREFIX)) {
+            return token.substring(TOKEN_PREFIX.length());
         }
-        if (!token.startsWith(TOKEN_PREFIX)) {
-            throw new BusinessException(INVALID_TOKEN);
-        }
+
+        return null;
     }
 
 }
