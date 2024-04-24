@@ -41,11 +41,12 @@ public class OAuth2Service extends DefaultOAuth2UserService {
         log.info("accessToken : {}", accessToken);
 
         // 유저 정보
-        OAuth2UserInfo oAuth2UserInfo =
-                OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId,
-                        accessToken,
-                        oAuth2User.getAttributes());
+        OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory
+                        .getOAuth2UserInfo(registrationId, oAuth2User.getAttributes());
 
+        log.info("userInfo: {}", oAuth2UserInfo.toString());
+
+        // 인증 정보
         return OAuth2UserPrincipal.of(oAuth2UserInfo);
     }
 

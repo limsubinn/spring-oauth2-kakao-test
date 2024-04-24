@@ -34,22 +34,31 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
+        log.info("oauth2 인증 성공");
+
         // 이미 http 응답이 클라이언트로 보내진 경우
         if (response.isCommitted()) {
+            log.debug("response is already committed!");
             return;
         }
 
-        // 쿠키 삭제
-        clearAuthenticationAttributes(request, response);
-        getRedirectStrategy().sendRedirect(request, response, getTargetUrl(request, authentication));
+
+        String targetUrl = getTargetUrl(request, authentication);
+        clearAuthenticationAttributes(request, response); // 쿠키 삭제
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
     private String getTargetUrl(HttpServletRequest request, Authentication authentication) {
+        log.info("[OAuth2AuthenticationSuccessHandler.getTargetUrl]");
+
         // redirect uri
         String redirectUri = getRedirectUriFromRequest(request);
 
         // login, logout, unlink
         String mode = getModeFromRequest(request);
+
+        log.info("redirectUri: {}", redirectUri);
+        log.info("mode: {}", mode);
 
         // 유저 인증 정보
         OAuth2UserPrincipal principal = getOAuth2UserPrincipal(authentication);

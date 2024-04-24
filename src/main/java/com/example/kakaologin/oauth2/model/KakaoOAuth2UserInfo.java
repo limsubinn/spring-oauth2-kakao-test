@@ -1,9 +1,11 @@
 package com.example.kakaologin.oauth2.model;
 
 import lombok.Builder;
+import lombok.ToString;
 
 import java.util.Map;
 
+@ToString
 public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
 
     private OAuth2Provider provider;
@@ -11,13 +13,13 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
     private String profileImgUrl;
 
     @Builder
-    private KakaoOAuth2UserInfo(OAuth2Provider provider,String email, String profileImgUrl, String accessToken) {
+    private KakaoOAuth2UserInfo(OAuth2Provider provider,String email, String profileImgUrl) {
         this.provider = provider;
         this.email = email;
         this.profileImgUrl = profileImgUrl;
     }
 
-    public static KakaoOAuth2UserInfo of(Map<String, Object> attributes, String accessToken) {
+    public static KakaoOAuth2UserInfo of(Map<String, Object> attributes) {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
 
@@ -25,7 +27,6 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
                 .provider(OAuth2Provider.KAKAO)
                 .email((String) kakaoAccount.get("email"))
                 .profileImgUrl((String) kakaoProfile.get("profile_image_url"))
-                .accessToken(accessToken)
                 .build();
     }
 
