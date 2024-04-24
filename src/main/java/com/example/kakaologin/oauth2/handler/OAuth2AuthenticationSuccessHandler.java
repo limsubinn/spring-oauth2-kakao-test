@@ -1,10 +1,10 @@
 package com.example.kakaologin.oauth2.handler;
 
-import com.example.kakaologin._common.exception.BusinessException;
+import com.example.kakaologin._common.utils.CookieUtils;
+import com.example.kakaologin._common.utils.JwtUtils;
 import com.example.kakaologin.member.entity.Member;
 import com.example.kakaologin.member.service.MemberService;
 import com.example.kakaologin.oauth2.model.OAuth2UserPrincipal;
-import com.example.kakaologin.oauth2.utils.CookieUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +26,7 @@ import static com.example.kakaologin.oauth2.repository.OAuth2AuthorizationReposi
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final CookieUtils cookieUtils;
+    private final JwtUtils jwtUtils;
     private final MemberService memberService;
 
     @Override
@@ -59,18 +60,29 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     principal.getUserInfo().getProvider(),
                     principal.getUserInfo().getEmail());
 
-            // 회원 존재 O
+            Long memberId;
+            String nextPage = "";
+
             if (member != null) {
                 // 로그인
+                memberId = member.getId();
+                nextPage = "login";
+            }
+            else {
+                // 회원가입
+                memberId = memberService.save(principal);
+                nextPage = "sign-up";
             }
 
-            // 회원 존재 X
-            // 회원가입
-
-
+            // 회원가입 or 로그인 페이지로 리다이렉트
+            return UriComponentsBuilder.fromUriString(redirectUri)
+                    .queryParam("access-token", jwtUtils.generateAccessToken(authentication, memberId))
+                    .queryParam("refresh-token", jwtUtils.generateRefreshToken(authentication, memberId))
+                    .queryParam("next-page", nextPage)
+                    .build().toUriString();
         }
 
-
+        // TODO: 회원탈퇴, 로그아웃 로직 구현
     }
 
     private String getRedirectUriFromRequest(HttpServletRequest request) {
