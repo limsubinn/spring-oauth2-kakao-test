@@ -1,6 +1,7 @@
 package com.example.kakaologin.member.entity;
 
 import com.example.kakaologin.oauth2.model.OAuth2Provider;
+import com.example.kakaologin.oauth2.model.OAuth2UserPrincipal;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -39,6 +40,14 @@ public class Member {
         this.profileImg = profileImg;
         this.phoneNumber = phoneNumber;
         this.socialType = socialType;
+    }
+
+    public static Member from(OAuth2UserPrincipal principal) {
+        return builder()
+                .email(principal.getUserInfo().getEmail())
+                .profileImg(principal.getUserInfo().getProfileImgUrl())
+                .socialType(principal.getUserInfo().getProvider())
+                .build();
     }
 
 }

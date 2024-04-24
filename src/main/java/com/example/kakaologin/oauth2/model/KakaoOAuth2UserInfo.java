@@ -11,7 +11,7 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
     private String profileImgUrl;
 
     @Builder
-    private KakaoOAuth2UserInfo(OAuth2Provider provider, String id, String email, String profileImgUrl, String accessToken) {
+    private KakaoOAuth2UserInfo(OAuth2Provider provider,String email, String profileImgUrl, String accessToken) {
         this.provider = provider;
         this.email = email;
         this.profileImgUrl = profileImgUrl;
@@ -40,7 +40,7 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
     }
 
     @Override
-    public String profileImgUrl() {
+    public String getProfileImgUrl() {
         return profileImgUrl;
     }
     

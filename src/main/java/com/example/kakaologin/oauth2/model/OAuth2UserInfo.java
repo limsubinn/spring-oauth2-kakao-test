@@ -4,6 +4,6 @@ public interface OAuth2UserInfo {
 
     OAuth2Provider getProvider();
     String getEmail();
-    String profileImgUrl();
+    String getProfileImgUrl();
 
 }
