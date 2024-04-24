@@ -19,6 +19,8 @@ public enum ErrorType {
      */
     PROVIDER_NOT_SUPPORTED(HttpStatus.BAD_REQUEST, "지원되지 않는 소셜 타입 입니다."),
     OAUTH_AUTHENTICATION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "소셜 로그인에 실패하였습니다."),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+
     ;
 
     private HttpStatus httpStatus;
