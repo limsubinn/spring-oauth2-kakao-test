@@ -24,7 +24,7 @@ import java.util.*;
 public class JwtUtils {
 
     private final long ACCESS_TOKEN_VALID_TIME = (60 * 1000) * 30; // 30분
-//    private final long REFRESH_TOKEN_VALID_TIME = (60 * 1000) * 60 * 24 * 7; // 7일
+    private final long REFRESH_TOKEN_VALID_TIME = (60 * 1000) * 60 * 24 * 7; // 7일
     private final String AUTHORITIES_KEY = "role";
 
     @Value("${secret.jwt-secret-key}")
@@ -39,6 +39,10 @@ public class JwtUtils {
 
     public String generateAccessToken(Authentication authentication, Long memberId) {
         return generateToken(authentication, memberId, ACCESS_TOKEN_VALID_TIME);
+    }
+
+    public String generateRefreshToken(Authentication authentication, Long memberId) {
+        return generateToken(authentication, memberId, REFRESH_TOKEN_VALID_TIME);
     }
 
     private String generateToken(Authentication authentication, Long memberId, long validTime) {
